@@ -116,7 +116,19 @@ for (( Y=YEAR_START; Y<=YEAR_END; Y++ )); do
 
     DAYS=$(date -d "${Y}-${MONTH}-01 +1 month -1 day" +%d)
     EXPECTED=$(( 10#${DAYS} * 48 ))
-    FOUND=$(find "${ARCHIVE}/$((Y-1))" "${ARCHIVE}/${Y}" "${ARCHIVE}/$((Y+1))" \
+    # Only search year directories that exist. Under `set -o pipefail` a find
+    # over a missing directory returns non-zero and would abort the whole
+    # script -- which is what happens at the ends of the archive, where a
+    # neighbouring year (2013, 2024) is simply not there.
+    SEARCH=()
+    for YY in $((Y-1)) "${Y}" $((Y+1)); do
+        [[ -d "${ARCHIVE}/${YY}" ]] && SEARCH+=("${ARCHIVE}/${YY}")
+    done
+    if [[ ${#SEARCH[@]} -eq 0 ]]; then
+        echo "WARN: ${YYYYMM} no archive directory, skipping"
+        continue
+    fi
+    FOUND=$(find "${SEARCH[@]}" \
                  -maxdepth 1 -name "3B-HHR.MS.MRG.3IMERG.${YYYYMM}*.HDF5" -printf '%f\n' \
                  2>/dev/null | sort -u | wc -l)
 
