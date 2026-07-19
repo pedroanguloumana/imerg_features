@@ -26,12 +26,14 @@ else:
     OUT = f"{PROJECT}/output_{TARGET}_inswathcounted"
     STEPS_PER_DAY = {"halfhour": 48, "hourly": 24}[TARGET]
 
-# These must match the values the run was submitted with (submit_imerg_jobs.sh
-# defaults). They are not recorded in the CSV, so they are stated here: with
-# the stale literals 250/4 the width and min-size checks fail against a run made
-# at 245 km / min-size 5.
+# These must match the values the run was submitted with, and are kept in step
+# with the submit_imerg_jobs.sh defaults. They are not recorded in the CSV, so
+# they have to be stated here -- and when they drift from the run they describe,
+# the width and min-size checks fail for no reason other than the drift. Export
+# SWATH_WIDTH_KM / MIN_SIZE to check a run made with different settings, e.g.
+# the earlier min-size 5 output:  MIN_SIZE=5 python verify_outputs.py inswathcounted
 SWATH_WIDTH_KM = float(os.environ.get("SWATH_WIDTH_KM", 245))
-MIN_SIZE = int(os.environ.get("MIN_SIZE", 5))
+MIN_SIZE = int(os.environ.get("MIN_SIZE", 4))
 
 fs = sorted(glob.glob(f"{OUT}/imerg_features_*.csv"))
 print(f"{TARGET}: {len(fs)} monthly CSVs in {os.path.basename(OUT)}\n")

@@ -176,7 +176,8 @@ def main():
     p.add_argument("--lat-min", type=float, default=-20.0)
     p.add_argument("--lat-max", type=float, default=20.0)
     p.add_argument("--threshold", type=float, default=1.0, help="mm/hr")
-    p.add_argument("--min-size", type=int, default=10, help="pixels")
+    p.add_argument("--min-size", type=int, default=4,
+                   help="pixels; matches the submit_imerg_jobs.sh default")
     p.add_argument("--connectivity", type=int, default=2, choices=(1, 2))
     p.add_argument("--swath-width-km", type=float, default=250.0)
     p.add_argument("--swath-angle-deg", type=float, default=65.0)

@@ -58,7 +58,7 @@ esac
 LAT_MIN="${LAT_MIN:--20}"
 LAT_MAX="${LAT_MAX:-20}"
 THRESHOLD="${THRESHOLD:-1.0}"          # mm/hr
-MIN_SIZE="${MIN_SIZE:-5}"              # pixels
+MIN_SIZE="${MIN_SIZE:-4}"              # pixels
 CONNECTIVITY="${CONNECTIVITY:-2}"      # 8-connectivity
 SWATH_WIDTH_KM="${SWATH_WIDTH_KM:-245}"
 SWATH_ANGLE_DEG="${SWATH_ANGLE_DEG:-65}"
