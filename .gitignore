@@ -1,0 +1,21 @@
+# Feature CSVs are run outputs, not source: a single month is ~20-330 MB and a
+# full set runs to hundreds of MB. Regenerate them with submit_imerg_jobs.sh.
+output/
+output_*/
+
+# Job logs and the generated per-run file lists.
+logs/
+
+# Symlinks into cluster-local storage (/data05, /data07). Recreate with:
+#   ln -s /data05/IMERG_GPM  data/imerg_hhr
+#   ln -s /data07/IMERG/6hourly data/imerg_6hr
+data/
+
+# Local tooling / editor state
+.claude/
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
